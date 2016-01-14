@@ -82,11 +82,18 @@ public class Vector {
     }
 
     public void rotate(double x, double y, double z, Vector center){
-        this.subtract(center);
+        this.x -= center.x;
+        this.y -= center.y;
+        this.z -= center.z;
+
         this.rotateX(x);
         this.rotateY(y);
         this.rotateZ(z);
         this.add(center);
+
+        this.x += center.x;
+        this.y += center.y;
+        this.z += center.z;
     }
 
     public void rotateX(double t){

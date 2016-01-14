@@ -24,9 +24,9 @@ public class Main extends PApplet{
     }
 
     public void setup(){
-//        triangle.centroid = new Vector(0,0,10);
-//        triangle.color = new GColor(255,0,0);
-//        scene.objects.add(triangle);
+        triangle.centroid = new Vector(0,0,10);
+        triangle.color = new GColor(255,0,0);
+        scene.objects.add(triangle);
 
         triangle2.centroid = new Vector(0,0,8);
         scene.objects.add(triangle2);
@@ -34,8 +34,8 @@ public class Main extends PApplet{
 
     public void draw(){
         rect(0,0,width,height);
-//        triangle.rotate(0,-0.01,0.03);
-        triangle2.rotate(0.03,0,0);
+        triangle.rotate(0,-0.01,0.03);
+        triangle2.rotate(0.03,0,0.01);
         drawImage(camera.generateImage(scene));
 
     }
