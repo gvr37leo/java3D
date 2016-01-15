@@ -13,7 +13,7 @@ public class Vector {
         Vector normal = triangle.normal;
         double u = normal.dot(triangle.A.subtract(line1)) / normal.dot(line2.subtract(line1));
         return line1.add(line2.subtract(line1).scale(u));
-    };
+    }
 
     public Vector subtract(Vector vector){
         double x = this.x - vector.x;
@@ -115,5 +115,26 @@ public class Vector {
         double newy = this.x * Math.sin(t) + this.y * Math.cos(t);
         this.x = newx;
         this.y = newy;
+    }
+
+    public Triangle castRay(Vector to, Scene scene){
+        Triangle closestObject = null;
+        Vector closest = new Vector(0,0,999999999);
+
+        for(int i = 0;i < scene.objects.size(); i ++){
+            Vector intersection = Vector.getPlaneIntersect(this,to,scene.objects.get(i));
+            if(intersection.isInTriangle(scene.objects.get(i))){
+                if(intersection.calcLength() < closest.calcLength()){
+                    closest = intersection;
+                    closestObject = scene.objects.get(i);
+                }
+            }
+        }
+        return closestObject;
+    }
+
+    public Vector project(Vector vector){
+        double scalar = this.dot(vector)/this.dot(this);
+        return this.scale(scalar);
     }
 }

@@ -10,8 +10,6 @@ public class GColor {
     }
 
     public GColor() {
-        R = 0;
-        G = 0;
-        B = 0;
+        this(0,0,0);
     }
 }
