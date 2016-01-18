@@ -1,9 +1,11 @@
+package main;
+
 import processing.core.PApplet;
 
 public class Main extends PApplet{
 
     static public void main(String args[]) {
-        PApplet.main(new String[] { "Main" });
+        PApplet.main(new String[] { "main.Main" });
     }
 
     Scene scene = new Scene();

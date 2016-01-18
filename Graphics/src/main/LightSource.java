@@ -1,3 +1,5 @@
+package main;
+
 public class LightSource {
     public double brightness;
     public GColor color;

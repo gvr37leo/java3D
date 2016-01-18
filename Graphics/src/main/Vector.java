@@ -1,12 +1,16 @@
-public class Vector {
+package main;
+
+public class Vector{
     public double x;
     public double y;
     public double z;
+    public double length;
 
     public Vector(double x, double y, double z){
         this.x = x;
         this.y = y;
         this.z = z;
+        this.length = calcLength();
     }
 
     public static Vector getPlaneIntersect(Vector line1, Vector line2, Triangle triangle){
@@ -52,7 +56,7 @@ public class Vector {
         return Math.acos(this.dot(vector) / (this.calcLength() * vector.calcLength()));
     }
 
-    public static Vector calcNnormal(Vector A,Vector B,Vector C){
+    public static Vector calcNormal(Vector A, Vector B, Vector C){
         return B.subtract(A).cross(C.subtract(A));
     }
 
@@ -82,18 +86,14 @@ public class Vector {
     }
 
     public void rotate(double x, double y, double z, Vector center){
-        this.x -= center.x;
-        this.y -= center.y;
-        this.z -= center.z;
-
+        Vector self = this;
+        self = self.subtract(center);
+        //maybe an idea to even for rotate return a new Vector object maybe that will make this xyz bullshit go away and make the returning of objects uniform
         this.rotateX(x);
         this.rotateY(y);
         this.rotateZ(z);
         this.add(center);
-
-        this.x += center.x;
-        this.y += center.y;
-        this.z += center.z;
+        self = self.add(center);
     }
 
     public void rotateX(double t){
@@ -117,13 +117,12 @@ public class Vector {
         this.y = newy;
     }
 
-    public Triangle castRay(Vector to, Scene scene){
-        Triangle closestObject = null;
+    public Intersectable castRay(Vector to, Scene scene){
+        Intersectable closestObject = null;
         Vector closest = new Vector(0,0,999999999);
-
         for(int i = 0;i < scene.objects.size(); i ++){
-            Vector intersection = Vector.getPlaneIntersect(this,to,scene.objects.get(i));
-            if(intersection.isInTriangle(scene.objects.get(i))){
+            Vector intersection = scene.objects.get(i).getIntersect(this,to);
+            if(intersection != null){
                 if(intersection.calcLength() < closest.calcLength()){
                     closest = intersection;
                     closestObject = scene.objects.get(i);
@@ -136,5 +135,13 @@ public class Vector {
     public Vector project(Vector vector){
         double scalar = this.dot(vector)/this.dot(this);
         return this.scale(scalar);
+    }
+
+    public boolean equals(Vector other){
+        return other.x == x && other.y == y && other.z == z;
+    }
+
+    public Vector parametricForm(Vector to,double scale){
+        return this.add(to.subtract(this).scale(scale));
     }
 }

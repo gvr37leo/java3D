@@ -1,3 +1,5 @@
+package main;
+
 public class GColor {
     public int R;
     public int G;

@@ -1,4 +1,6 @@
-public class Triangle {
+package main;
+
+public class Triangle extends Intersectable {
     Vector A;
     Vector B;
     Vector C;
@@ -12,7 +14,7 @@ public class Triangle {
         this.B = B;
         this.C = C;
         centroid = A.add(B).add(C).scale(1/3);
-        normal = Vector.calcNnormal(A, B, C);
+        normal = Vector.calcNormal(A, B, C);
         area = getTriangleArea(this);
     }
 
@@ -37,4 +39,22 @@ public class Triangle {
         this.C.add(vector);
         this.centroid.add(vector);
     }
+
+    public Vector getIntersect(Vector from, Vector to) {
+        Vector v = to.subtract(from);
+        Vector w = A.subtract(from);
+        double k = w.dot(normal)/v.dot(normal);
+        Vector intersectionPoint = from.add(to.subtract(from).scale(k));
+        if(isInTriangle(intersectionPoint)){
+            return intersectionPoint;
+        }else{
+            return null;
+        }
+    }
+
+    public boolean isInTriangle(Vector vector){
+        return false;
+    }
+
+
 }

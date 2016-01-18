@@ -1,3 +1,5 @@
+package main;
+
 public class Camera extends Vector{
 
     public double yaw;
@@ -17,7 +19,7 @@ public class Camera extends Vector{
         GColor[][] image = new GColor[resolutionHeight][resolutionWidth];
         for(int x = 0; x < resolutionWidth; x ++){
             for(int y = 0; y < resolutionHeight; y++){
-                Triangle hitObject = castRay(new Vector(x-20, y-20, 20),scene);
+                Intersectable hitObject = castRay(new Vector(x-20, y-20, 20),scene);
                 if(hitObject == null){
                     image[y][x] = new GColor(255,255,255);
                 }else{
@@ -28,11 +30,11 @@ public class Camera extends Vector{
         return image;
     }
 
-//    public GColor castRay(Vector P, Scene scene){
-//        Vector closest = new Vector(0,0,99999999);
-//        GColor color = new GColor(255,255,255);
+//    public src.GColor castRay(src.Vector P, src.Scene scene){
+//        src.Vector closest = new src.Vector(0,0,99999999);
+//        src.GColor color = new src.GColor(255,255,255);
 //        for(int i = 0;i < scene.objects.size(); i ++){
-//            Vector intersection = Vector.getPlaneIntersect(this,P,scene.objects.get(i));
+//            src.Vector intersection = src.Vector.getPlaneIntersect(this,P,scene.objects.get(i));
 //            if(intersection.isInTriangle(scene.objects.get(i))){
 //                if(intersection.calcLength() < closest.calcLength()){
 //                    closest = intersection;
