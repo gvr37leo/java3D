@@ -85,15 +85,14 @@ public class Vector{
         return (r + t <= 1);
     }
 
-    public void rotate(double x, double y, double z, Vector center){
-        Vector self = this;
-        self = self.subtract(center);
+    public Vector rotate(double x, double y, double z, Vector center){
+        Vector selfCopy = this.subtract(center);
         //maybe an idea to even for rotate return a new Vector object maybe that will make this xyz bullshit go away and make the returning of objects uniform
-        this.rotateX(x);
-        this.rotateY(y);
-        this.rotateZ(z);
-        this.add(center);
-        self = self.add(center);
+        selfCopy.rotateX(x);
+        selfCopy.rotateY(y);
+        selfCopy.rotateZ(z);
+        selfCopy.add(center);
+        return selfCopy.add(center);
     }
 
     public void rotateX(double t){
@@ -118,14 +117,17 @@ public class Vector{
     }
 
     public Intersectable castRay(Vector to, Scene scene){
+        //maybe put all the intersection in a list and loop through that to get the shortest
+        //finding the shortest can be another method
         Intersectable closestObject = null;
-        Vector closest = new Vector(0,0,999999999);
-        for(int i = 0;i < scene.objects.size(); i ++){
-            Vector intersection = scene.objects.get(i).getIntersect(this,to);
+        Vector closest = new Vector(0,0,0);
+        closest.length = Double.POSITIVE_INFINITY;
+        for(Intersectable object:scene.objects){
+            Vector intersection = object.getIntersect(this,to);
             if(intersection != null){
-                if(intersection.calcLength() < closest.calcLength()){
+                if(intersection.length < closest.length){
                     closest = intersection;
-                    closestObject = scene.objects.get(i);
+                    closestObject = object;
                 }
             }
         }
@@ -143,5 +145,17 @@ public class Vector{
 
     public Vector parametricForm(Vector to,double scale){
         return this.add(to.subtract(this).scale(scale));
+    }
+
+    //still figuring this one out
+    public Vector reflectOn(Plane plane, Vector intersect){//can be optimized if plane normal is guaranteed normalized
+        Vector Vp = plane.normal.project(this);
+        Vector reflection = this.subtract(Vp.scale(2));
+        return intersect.add(reflection);
+    }
+
+    public Vector refractOn(Plane plane, Vector intersect){
+        double ri = plane.material.refractionIndex;
+        return null;
     }
 }

@@ -1,10 +1,10 @@
 package main;
 
-public class Box extends Intersectable {
+public class AABB extends Intersectable {
     public Vector A;
     public Vector B;
 
-    public Box(Vector A, Vector B) {
+    public AABB(Vector A, Vector B) {
         this.A = A;
         this.B = B;
     }

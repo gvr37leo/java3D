@@ -19,7 +19,7 @@ public class Camera extends Vector{
         GColor[][] image = new GColor[resolutionHeight][resolutionWidth];
         for(int x = 0; x < resolutionWidth; x ++){
             for(int y = 0; y < resolutionHeight; y++){
-                Intersectable hitObject = castRay(new Vector(x-20, y-20, 20),scene);
+                Intersectable hitObject = castRay(new Vector(x-20, y-20, z + 20),scene);
                 if(hitObject == null){
                     image[y][x] = new GColor(255,255,255);
                 }else{

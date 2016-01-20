@@ -3,6 +3,7 @@ package main;
 public class Plane extends Intersectable {
     public Vector point;
     public Vector normal;
+    public Material material;
 
     public Plane(Vector point, Vector normal) {
         this.point = point;

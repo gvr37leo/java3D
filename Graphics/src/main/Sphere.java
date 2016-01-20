@@ -34,7 +34,7 @@ public class Sphere extends Intersectable {
                 double a = projectionToSphere.length;
                 double c = radius;
                 double b = Math.pow(Math.pow(c,2) - Math.pow(a,2),0.5);
-                return from.parametricForm(to, rayToSphere.length - b);
+                return projectionOnRay.scale((projectionOnRay.length-b) / projectionOnRay.length);
             }
         }
     }

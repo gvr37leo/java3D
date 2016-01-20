@@ -6,7 +6,6 @@ public class Triangle extends Intersectable {
     Vector C;
     public Vector normal;
     public Vector centroid;
-    public GColor color = new GColor();
     public double area;
 
     public Triangle(Vector A, Vector B, Vector C) {
@@ -27,17 +26,17 @@ public class Triangle extends Intersectable {
     }
 
     public void rotate(double x, double y,double z){
-        this.A.rotate(x,y,z,this.centroid);
-        this.B.rotate(x,y,z,this.centroid);
-        this.C.rotate(x,y,z,this.centroid);
-        this.normal.rotate(x,y,z,this.centroid);
+        this.A = this.A.rotate(x,y,z,this.centroid);
+        this.B = this.B.rotate(x,y,z,this.centroid);
+        this.C = this.C.rotate(x,y,z,this.centroid);
+        this.normal = this.normal.rotate(x,y,z,this.centroid);
     }
 
     public  void translate(Vector vector){
-        this.A.add(vector);
-        this.B.add(vector);
-        this.C.add(vector);
-        this.centroid.add(vector);
+        this.A = this.A.add(vector);
+        this.B = this.B.add(vector);
+        this.C = this.C.add(vector);
+        this.centroid = this.centroid.add(vector);
     }
 
     public Vector getIntersect(Vector from, Vector to) {
@@ -52,8 +51,47 @@ public class Triangle extends Intersectable {
         }
     }
 
-    public boolean isInTriangle(Vector vector){
-        return false;
+//    public boolean isInTriangle(Vector Intersect){
+//        Vector AB = B.subtract(A);
+//        Vector CB = B.subtract(C);
+//        Vector Va = AB.subtract(CB.project(AB));
+//        Vector AI = Intersect.subtract(A);
+//        double a = 1 - Va.dot(AI)/Va.dot(AB);
+//        if(a < 0){
+//            return false;
+//        }
+//
+//        Vector BC = C.subtract(B);
+//        Vector AC = C.subtract(A);
+//        Vector Vb = BC.subtract(AC.project(BC));
+//        Vector BI = Intersect.subtract(B);
+//        double b = 1 - Vb.dot(BI)/Vb.dot(BC);
+//        return b > 0;
+//    }
+
+    public boolean isInTriangle(Vector intersect){
+        Vector u = B.subtract(A);
+        Vector v = C.subtract(A);
+        Vector w = intersect.subtract(A);
+
+        Vector vCrossW = v.cross(w);
+        Vector vCrossU = v.cross(u);
+
+        if (vCrossW.dot(vCrossU) < 0){
+            return false;
+        }
+
+        Vector uCrossW = u.cross(w);
+        Vector uCrossV = u.cross(v);
+
+        if (uCrossW.dot(uCrossV) < 0) {
+            return false;
+        }
+
+        double denom = uCrossV.calcLength();
+        double r = vCrossW.calcLength() / denom;
+        double t = uCrossW.calcLength() / denom;
+        return (r + t <= 1);
     }
 
 

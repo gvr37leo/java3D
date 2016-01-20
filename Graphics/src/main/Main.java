@@ -26,18 +26,22 @@ public class Main extends PApplet{
     }
 
     public void setup(){
-        triangle.centroid = new Vector(0,0,10);
-        triangle.color = new GColor(255,0,0);
-        scene.objects.add(triangle);
+//        triangle.centroid = new Vector(0,0,10);
+//        triangle.color = new GColor(255,0,0);
+//        scene.objects.add(triangle);
 
-        triangle2.centroid = new Vector(0,0,8);
+//        triangle2.centroid = new Vector(0,0,8);
         scene.objects.add(triangle2);
+
+        Sphere sphere = new Sphere(new Vector(0,0,10),3);
+        sphere.color = new GColor(255,0,0);
+        scene.objects.add(sphere);
     }
 
     public void draw(){
         rect(0,0,width,height);
-        triangle.rotate(0,-0.01,0.03);
-        triangle2.rotate(0.03,0,0.01);
+//        triangle.rotate(0,-0.01,0.03);
+//        triangle2.rotate(0.03,0,0.01);
         drawImage(camera.generateImage(scene));
 
     }
@@ -50,5 +54,22 @@ public class Main extends PApplet{
             }
         }
         fill(0);
+    }
+
+    public void keyPressed(){
+        switch (key){
+            case 'w': camera.y++;
+                break;
+            case 's': camera.y--;
+                break;
+            case 'a': camera.x--;
+                break;
+            case 'd': camera.x++;
+                break;
+            case 'r': camera.z++;
+                break;
+            case 'f': camera.z--;
+                break;
+        }
     }
 }
