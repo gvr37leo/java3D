@@ -117,16 +117,16 @@ public class Vector{
     }
 
     public Intersectable castRay(Vector to, Scene scene){
-        //maybe put all the intersection in a list and loop through that to get the shortest
-        //finding the shortest can be another method
         Intersectable closestObject = null;
         Vector closest = new Vector(0,0,0);
         closest.length = Double.POSITIVE_INFINITY;
         for(Intersectable object:scene.objects){
-            Vector intersection = object.getIntersect(this,to);
+            Vector intersection = object.getIntersect(this,to);//maybe vector from camera to intersection has to be calculated
+            // because now only the location of the intersection is calculated atleast in triangle
             if(intersection != null){
-                if(intersection.length < closest.length){
-                    closest = intersection;
+                Vector cameraToIntersection = intersection.subtract(this);
+                if(cameraToIntersection.length < closest.length){
+                    closest = cameraToIntersection;
                     closestObject = object;
                 }
             }
@@ -157,5 +157,9 @@ public class Vector{
     public Vector refractOn(Plane plane, Vector intersect){
         double ri = plane.material.refractionIndex;
         return null;
+    }
+
+    public Vector normalize(){
+        return this.scale(1/length);
     }
 }

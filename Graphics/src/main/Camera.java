@@ -19,29 +19,25 @@ public class Camera extends Vector{
         GColor[][] image = new GColor[resolutionHeight][resolutionWidth];
         for(int x = 0; x < resolutionWidth; x ++){
             for(int y = 0; y < resolutionHeight; y++){
-                Intersectable hitObject = castRay(new Vector(x-20, y-20, z + 20),scene);
+//                Intersectable hitObject = castRay(generateCameraRay(x, y),scene);
+                Intersectable hitObject = castRay(new Vector(x-20 + this.x, y-20 + this.y , z + 20),scene);
                 if(hitObject == null){
                     image[y][x] = new GColor(255,255,255);
                 }else{
                     image[y][x] = hitObject.color;
+                    castRay(new Vector(x-20 + this.x, y-20 + this.y , z + 20),scene);//for testing purposes
+                    //looks like the casted ray may always be pointed from origin
+                    //but why does it work with triangles?
                 }
             }
         }
         return image;
     }
 
-//    public src.GColor castRay(src.Vector P, src.Scene scene){
-//        src.Vector closest = new src.Vector(0,0,99999999);
-//        src.GColor color = new src.GColor(255,255,255);
-//        for(int i = 0;i < scene.objects.size(); i ++){
-//            src.Vector intersection = src.Vector.getPlaneIntersect(this,P,scene.objects.get(i));
-//            if(intersection.isInTriangle(scene.objects.get(i))){
-//                if(intersection.calcLength() < closest.calcLength()){
-//                    closest = intersection;
-//                    color = scene.objects.get(i).color;
-//                }
-//            }
-//        }
-//        return color;
-//    }
+    private Vector generateCameraRay(int x, int y){
+        double rasterX = x * 2 / resolutionWidth - 1;
+        double rasterY = y * 2 / resolutionWidth - 1;
+        Vector direction = new Vector(this.x + rasterX, this.y + rasterY, this.z + 1);
+        return direction;
+    }
 }

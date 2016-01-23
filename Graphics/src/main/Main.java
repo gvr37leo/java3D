@@ -14,9 +14,9 @@ public class Main extends PApplet{
     Vector C = new Vector(5,0,10);
     Triangle triangle = new Triangle(A,B,C);
 
-    Vector A2 = new Vector(-5,0,8);
-    Vector B2 = new Vector(0,5,8);
-    Vector C2 = new Vector(5,0,8);
+    Vector A2 = new Vector(-5,0,7.5);
+    Vector B2 = new Vector(0,5,7.5);
+    Vector C2 = new Vector(5,0,7.5);
     Triangle triangle2 = new Triangle(A2,B2,C2);
 
     Camera camera = new Camera();
@@ -30,16 +30,19 @@ public class Main extends PApplet{
 //        triangle.color = new GColor(255,0,0);
 //        scene.objects.add(triangle);
 
-//        triangle2.centroid = new Vector(0,0,8);
+//        triangle2.centroid = new Vector(0,0,7.5);
         scene.objects.add(triangle2);
 
         Sphere sphere = new Sphere(new Vector(0,0,10),3);
         sphere.color = new GColor(255,0,0);
         scene.objects.add(sphere);
+
+        camera.z = 0;
+        camera.y = 0;
     }
 
     public void draw(){
-        rect(0,0,width,height);
+//        rect(0,0,width,height);
 //        triangle.rotate(0,-0.01,0.03);
 //        triangle2.rotate(0.03,0,0.01);
         drawImage(camera.generateImage(scene));

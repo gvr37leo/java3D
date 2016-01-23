@@ -112,4 +112,11 @@ public class VectorTest {
         Vector reflection = C.reflectOn(plane,plane.getIntersect(new Vector(0,0,0), C));
         assertTrue(new Vector(0, 20, 0).equals(reflection));
     }
+
+    @Test
+    public void testNormalize() throws Exception {
+        Vector vector = new Vector(3,5,6);
+        Vector normalized = vector.normalize();
+        assertTrue(normalized.length == 1);
+    }
 }
