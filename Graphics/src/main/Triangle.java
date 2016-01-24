@@ -43,6 +43,9 @@ public class Triangle extends Intersectable {
         Vector v = to.subtract(from);
         Vector w = A.subtract(from);
         double k = w.dot(normal)/v.dot(normal);
+        if(k < 0){
+            return null;
+        }
         Vector intersectionPoint = from.add(v.scale(k));
         if(isInTriangle(intersectionPoint)){
             return intersectionPoint;

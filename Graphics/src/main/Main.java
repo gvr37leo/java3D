@@ -39,6 +39,7 @@ public class Main extends PApplet{
 
         camera.z = 0;
         camera.y = 0;
+        camera.x = 0;
     }
 
     public void draw(){
@@ -72,6 +73,18 @@ public class Main extends PApplet{
             case 'r': camera.z++;
                 break;
             case 'f': camera.z--;
+                break;
+            case 'q': camera.yaw -= 0.1;
+                break;
+            case 'e': camera.yaw += 0.1;
+                break;
+            case 'z': camera.roll -= 0.1;
+                break;
+            case 'x': camera.roll += 0.1;
+                break;
+            case 't': camera.pitch -= 0.1;
+                break;
+            case 'g': camera.pitch += 0.1;
                 break;
         }
     }

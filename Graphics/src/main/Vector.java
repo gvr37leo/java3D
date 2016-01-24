@@ -154,8 +154,12 @@ public class Vector{
         return intersect.add(reflection);
     }
 
+    //still needs work
     public Vector refractOn(Plane plane, Vector intersect){
-        double ri = plane.material.refractionIndex;
+        double riWater = 1.33;
+        double riAir =  1.00029;
+        double incomningAngle = this.calcAngle(plane.normal);
+        double outgoingAngle = Math.asin(riAir * Math.sin(incomningAngle)/riWater);
         return null;
     }
 
