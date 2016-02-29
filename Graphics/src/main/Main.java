@@ -8,6 +8,9 @@ public class Main extends PApplet{
         PApplet.main(new String[] { "main.Main" });
     }
 
+    //maybe split things up in geometry(like boxes for collisions and stuff) and material
+    //and combine the two in a MESH just like three.js
+
     Scene scene = new Scene();
     Vector A = new Vector(-5,0,10);
     Vector B = new Vector(0,5,10);
@@ -51,10 +54,12 @@ public class Main extends PApplet{
     }
 
     public void drawImage(GColor[][] image){
-        for(int x = 0; x < image.length; x ++) {
-            for (int y = 0; y < image[0].length; y++) {
+        for(int x = 0; x < image[0].length; x ++) {
+            for (int y = 0; y < image.length; y++){
                 fill(image[y][x].R,image[y][x].G,image[y][x].B);
-                rect(x * 10, y * 10,40,40);
+                float boxWidth = width/image[0].length;
+                float boxHeight = height/image[0].length;
+                rect(x * boxWidth, y * boxHeight, boxWidth, boxHeight);
             }
         }
         fill(0);

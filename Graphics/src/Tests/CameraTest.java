@@ -24,6 +24,7 @@ public class CameraTest {
     public void testGenerateCameraRay() throws Exception {
         Vector topLeft = camera.generateCameraRay(0,0);
         Vector middle = camera.generateCameraRay(20,20);
+        Vector rightBottom = camera.generateCameraRay(40,40);
 
         assertTrue(topLeft.normalize().equals(new Vector(-1,1,1).normalize()));
         assertTrue(middle.normalize().equals(new Vector(0,0,1).normalize()));
